@@ -1,7 +1,7 @@
 import data
 import build_data
 import unittest
-
+import build_data
 
 # These two values are defined to support testing below. The
 # data within these structures should not be modified. Doing
@@ -172,36 +172,1705 @@ reduced_data = [
          '2014 Population': 7201,
          'Population Percent Change': -0.1,
          'Population per Square Mile': 3.0},
-        'WY')
-    ]
-
-class TestCases(unittest.TestCase):
-    pass
+        'WY')]
 
     # Part 1
     # test population_total
+class CountyDemographics:
+    def __init__(self,
+                    age: dict[str,float],
+                    county: str,
+                    education: dict[str,float],
+                    ethnicities: dict[str,float],
+                    income: dict[str,float],
+                    population: dict[str,float],
+                    state: str):
+            self.age = age
+            self.county = county
+            self.education = education
+            self.ethnicities = ethnicities
+            self.income = income
+            self.population = population
+            self.state = state
+def population_total(counties: list[CountyDemographics]) -> int:
+    total_population = sum(county.population['2014 Population'] for county in counties)
+    return total_population
+
+county1 = CountyDemographics(
+        {'Percent 65 and Older': 17.5,
+         'Percent Under 18 Years': 18.1,
+         'Percent Under 5 Years': 4.8},
+        'San Luis Obispo County',
+        {"Bachelor's Degree or Higher": 31.5,
+         'High School or Higher': 89.6},
+        {'American Indian and Alaska Native Alone': 1.4,
+         'Asian Alone': 3.8,
+         'Black Alone': 2.2,
+         'Hispanic or Latino': 22.0,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 3.4,
+         'White Alone': 89.0,
+         'White Alone, not Hispanic or Latino': 69.5},
+        {'Per Capita Income': 29954,
+         'Persons Below Poverty Level': 14.3,
+         'Median Household Income': 58697},
+        {'2010 Population': 269637,
+         '2014 Population': 279083,
+         'Population Percent Change': 3.5,
+         'Population per Square Mile': 81.7},
+        'CA')
+county2 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.0},
+        'Crawford County',
+        {"Bachelor's Degree or Higher": 14.3,
+         'High School or Higher': 82.2},
+        {'American Indian and Alaska Native Alone': 2.5,
+         'Asian Alone': 1.6,
+         'Black Alone': 1.6,
+         'Hispanic or Latino': 6.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 2.8,
+         'White Alone': 91.5,
+         'White Alone, not Hispanic or Latino': 85.6},
+        {'Per Capita Income': 19477,
+         'Persons Below Poverty Level': 20.2,
+         'Median Household Income': 39479},
+        {'2010 Population': 61948,
+         '2014 Population': 61697,
+         'Population Percent Change': -0.4,
+         'Population per Square Mile': 104.4},
+        'AR')
+county3 = CountyDemographics(
+        {'Percent 65 and Older': 18.1,
+         'Percent Under 18 Years': 21.6,
+         'Percent Under 5 Years': 6.5},
+        'Weston County',
+        {"Bachelor's Degree or Higher": 17.2,
+         'High School or Higher': 90.2},
+        {'American Indian and Alaska Native Alone': 1.7,
+         'Asian Alone': 0.4,
+         'Black Alone': 0.7,
+         'Hispanic or Latino': 4.2,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.0,
+         'Two or More Races': 2.2,
+         'White Alone': 95.0,
+         'White Alone, not Hispanic or Latino': 91.5},
+        {'Per Capita Income': 28764,
+         'Persons Below Poverty Level': 11.2,
+         'Median Household Income': 55461},
+        {'2010 Population': 7208,
+         '2014 Population': 7201,
+         'Population Percent Change': -0.1,
+         'Population per Square Mile': 3.0},
+        'WY')
+county4 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.9},
+        'Pettis County',
+        {"Bachelor's Degree or Higher": 15.2,
+         'High School or Higher': 81.8},
+        {'American Indian and Alaska Native Alone': 0.7,
+         'Asian Alone': 0.7,
+         'Black Alone': 3.4,
+         'Hispanic or Latino': 8.3,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.3,
+         'Two or More Races': 1.9,
+         'White Alone': 92.9,
+         'White Alone, not Hispanic or Latino': 85.5},
+        {'Per Capita Income': 19709,
+         'Persons Below Poverty Level': 18.4,
+         'Median Household Income': 38580},
+        {'2010 Population': 42201,
+         '2014 Population': 42225,
+         'Population Percent Change': 0.1,
+         'Population per Square Mile': 61.9},
+        'MO')
+county5 = CountyDemographics(
+        {'Percent 65 and Older': 19.6,
+         'Percent Under 18 Years': 25.6,
+         'Percent Under 5 Years': 4.9},
+        'Butte County',
+        {"Bachelor's Degree or Higher": 17.9,
+         'High School or Higher': 89.2},
+        {'American Indian and Alaska Native Alone': 1.0,
+         'Asian Alone': 0.3,
+         'Black Alone': 0.2,
+         'Hispanic or Latino': 5.8,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 2.3,
+         'White Alone': 96.1,
+         'White Alone, not Hispanic or Latino': 90.6},
+        {'Per Capita Income': 20995,
+         'Persons Below Poverty Level': 15.7,
+         'Median Household Income': 41131},
+        {'2010 Population': 2891,
+         '2014 Population': 2622,
+         'Population Percent Change': -9.4,
+         'Population per Square Mile': 1.3},
+        'ID')
+county6 = CountyDemographics(
+        {'Percent 65 and Older': 11.5,
+         'Percent Under 18 Years': 21.7,
+         'Percent Under 5 Years': 5.8},
+        'Yolo County',
+        {"Bachelor's Degree or Higher": 37.9,
+         'High School or Higher': 84.3},
+        {'American Indian and Alaska Native Alone': 1.8,
+         'Asian Alone': 13.8,
+         'Black Alone': 3.0,
+         'Hispanic or Latino': 31.5,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.6,
+         'Two or More Races': 5.0,
+         'White Alone': 75.9,
+         'White Alone, not Hispanic or Latino': 48.3},
+        {'Per Capita Income': 27730,
+         'Persons Below Poverty Level': 19.1,
+         'Median Household Income': 55918},
+        {'2010 Population': 200849,
+         '2014 Population': 207590,
+         'Population Percent Change': 3.4,
+         'Population per Square Mile': 197.9},
+        'CA')
+county7 = CountyDemographics(
+        {'Percent 65 and Older': 13.8,
+         'Percent Under 18 Years': 25.2,
+         'Percent Under 5 Years': 6.0},
+        'Autauga County',
+        {"Bachelor's Degree or Higher": 20.9,
+         'High School or Higher': 85.6},
+        {'American Indian and Alaska Native Alone': 0.5,
+         'Asian Alone': 1.1,
+         'Black Alone': 18.7,
+         'Hispanic or Latino': 2.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 1.8,
+         'White Alone': 77.9,
+         'White Alone, not Hispanic or Latino': 75.6},
+        {'Per Capita Income': 24571,
+         'Persons Below Poverty Level': 12.1,
+         'Median Household Income': 53682},
+        {'2010 Population': 54571,
+         '2014 Population': 55395,
+         'Population Percent Change': 1.5,
+         'Population per Square Mile': 91.8},
+        'AL')
+counties = [county1,county2,county3,county4,county5,county6,county7]
+total_population = population_total(counties)
+print(total_population)
+
 
     # Part 2
     # test filter_by_state
+class CountyDemographics:
+    def __init__(self,
+                    age: dict[str, float],
+                    county: str,
+                    education: dict[str, float],
+                    ethnicities: dict[str, float],
+                    income: dict[str, float],
+                    population: dict[str, float],
+                    state: str):
+        self.age = age
+        self.county = county
+        self.education = education
+        self.ethnicities = ethnicities
+        self.income = income
+        self.population = population
+        self.state = state
+
+    def filter_by_state(counties: list[CountyDemographics], state_abbr: str) -> list[CountyDemographics]:
+        filtered_counties = [county for county in counties if county.state == state_abbr]
+        return filtered_counties
+    county1 = CountyDemographics(
+        {'Percent 65 and Older': 17.5,
+         'Percent Under 18 Years': 18.1,
+         'Percent Under 5 Years': 4.8},
+        'San Luis Obispo County',
+        {"Bachelor's Degree or Higher": 31.5,
+         'High School or Higher': 89.6},
+        {'American Indian and Alaska Native Alone': 1.4,
+         'Asian Alone': 3.8,
+         'Black Alone': 2.2,
+         'Hispanic or Latino': 22.0,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 3.4,
+         'White Alone': 89.0,
+         'White Alone, not Hispanic or Latino': 69.5},
+        {'Per Capita Income': 29954,
+         'Persons Below Poverty Level': 14.3,
+         'Median Household Income': 58697},
+        {'2010 Population': 269637,
+         '2014 Population': 279083,
+         'Population Percent Change': 3.5,
+         'Population per Square Mile': 81.7},
+        'CA')
+    county2 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.0},
+        'Crawford County',
+        {"Bachelor's Degree or Higher": 14.3,
+         'High School or Higher': 82.2},
+        {'American Indian and Alaska Native Alone': 2.5,
+         'Asian Alone': 1.6,
+         'Black Alone': 1.6,
+         'Hispanic or Latino': 6.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 2.8,
+         'White Alone': 91.5,
+         'White Alone, not Hispanic or Latino': 85.6},
+        {'Per Capita Income': 19477,
+         'Persons Below Poverty Level': 20.2,
+         'Median Household Income': 39479},
+        {'2010 Population': 61948,
+         '2014 Population': 61697,
+         'Population Percent Change': -0.4,
+         'Population per Square Mile': 104.4},
+        'AR')
+    county3 = CountyDemographics(
+        {'Percent 65 and Older': 18.1,
+         'Percent Under 18 Years': 21.6,
+         'Percent Under 5 Years': 6.5},
+        'Weston County',
+        {"Bachelor's Degree or Higher": 17.2,
+         'High School or Higher': 90.2},
+        {'American Indian and Alaska Native Alone': 1.7,
+         'Asian Alone': 0.4,
+         'Black Alone': 0.7,
+         'Hispanic or Latino': 4.2,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.0,
+         'Two or More Races': 2.2,
+         'White Alone': 95.0,
+         'White Alone, not Hispanic or Latino': 91.5},
+        {'Per Capita Income': 28764,
+         'Persons Below Poverty Level': 11.2,
+         'Median Household Income': 55461},
+        {'2010 Population': 7208,
+         '2014 Population': 7201,
+         'Population Percent Change': -0.1,
+         'Population per Square Mile': 3.0},
+        'WY')
+    county4 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.9},
+        'Pettis County',
+        {"Bachelor's Degree or Higher": 15.2,
+         'High School or Higher': 81.8},
+        {'American Indian and Alaska Native Alone': 0.7,
+         'Asian Alone': 0.7,
+         'Black Alone': 3.4,
+         'Hispanic or Latino': 8.3,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.3,
+         'Two or More Races': 1.9,
+         'White Alone': 92.9,
+         'White Alone, not Hispanic or Latino': 85.5},
+        {'Per Capita Income': 19709,
+         'Persons Below Poverty Level': 18.4,
+         'Median Household Income': 38580},
+        {'2010 Population': 42201,
+         '2014 Population': 42225,
+         'Population Percent Change': 0.1,
+         'Population per Square Mile': 61.9},
+        'MO')
+    county5 = CountyDemographics(
+        {'Percent 65 and Older': 19.6,
+         'Percent Under 18 Years': 25.6,
+         'Percent Under 5 Years': 4.9},
+        'Butte County',
+        {"Bachelor's Degree or Higher": 17.9,
+         'High School or Higher': 89.2},
+        {'American Indian and Alaska Native Alone': 1.0,
+         'Asian Alone': 0.3,
+         'Black Alone': 0.2,
+         'Hispanic or Latino': 5.8,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 2.3,
+         'White Alone': 96.1,
+         'White Alone, not Hispanic or Latino': 90.6},
+        {'Per Capita Income': 20995,
+         'Persons Below Poverty Level': 15.7,
+         'Median Household Income': 41131},
+        {'2010 Population': 2891,
+         '2014 Population': 2622,
+         'Population Percent Change': -9.4,
+         'Population per Square Mile': 1.3},
+        'ID')
+    county6 = CountyDemographics(
+        {'Percent 65 and Older': 11.5,
+         'Percent Under 18 Years': 21.7,
+         'Percent Under 5 Years': 5.8},
+        'Yolo County',
+        {"Bachelor's Degree or Higher": 37.9,
+         'High School or Higher': 84.3},
+        {'American Indian and Alaska Native Alone': 1.8,
+         'Asian Alone': 13.8,
+         'Black Alone': 3.0,
+         'Hispanic or Latino': 31.5,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.6,
+         'Two or More Races': 5.0,
+         'White Alone': 75.9,
+         'White Alone, not Hispanic or Latino': 48.3},
+        {'Per Capita Income': 27730,
+         'Persons Below Poverty Level': 19.1,
+         'Median Household Income': 55918},
+        {'2010 Population': 200849,
+         '2014 Population': 207590,
+         'Population Percent Change': 3.4,
+         'Population per Square Mile': 197.9},
+        'CA')
+    county7 = CountyDemographics(
+        {'Percent 65 and Older': 13.8,
+         'Percent Under 18 Years': 25.2,
+         'Percent Under 5 Years': 6.0},
+        'Autauga County',
+        {"Bachelor's Degree or Higher": 20.9,
+         'High School or Higher': 85.6},
+        {'American Indian and Alaska Native Alone': 0.5,
+         'Asian Alone': 1.1,
+         'Black Alone': 18.7,
+         'Hispanic or Latino': 2.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 1.8,
+         'White Alone': 77.9,
+         'White Alone, not Hispanic or Latino': 75.6},
+        {'Per Capita Income': 24571,
+         'Persons Below Poverty Level': 12.1,
+         'Median Household Income': 53682},
+        {'2010 Population': 54571,
+         '2014 Population': 55395,
+         'Population Percent Change': 1.5,
+         'Population per Square Mile': 91.8},
+        'AL')
+    counties = [county1,county2,county3,county4,county5,county6,county7]
+    filtered_counties = filter_by_state(counties, 'CA')
+    print([county.county for county in filtered_counties])
 
     # Part 3
     # test population_by_education
     # test population_by_ethnicity
     # test population_below_poverty_level
+    class CountyDemographics:
+        def __init__(self,
+                     age: dict[str, float],
+                     county: str,
+                     education: dict[str, float],
+                     ethnicities: dict[str, float],
+                     income: dict[str, float],
+                     population: dict[str, float],
+                     state: str):
+            self.age = age
+            self.county = county
+            self.education = education
+            self.ethnicities = ethnicities
+            self.income = income
+            self.population = population
+            self.state = state
+    def population_by_education(counties: list[CountyDemographics], education:str) -> float:
+        total_population = 0.0
+        for county in counties:
+            if education in county.education:
+                percentage = county.education[education]
+                population_2014 = county.population['2014 Population']
+                sub_population = (percentage / 100) * population_2014
+                total_population += sub_population
+            return total_population
+    county1 = CountyDemographics(
+        {'Percent 65 and Older': 17.5,
+         'Percent Under 18 Years': 18.1,
+         'Percent Under 5 Years': 4.8},
+        'San Luis Obispo County',
+        {"Bachelor's Degree or Higher": 31.5,
+         'High School or Higher': 89.6},
+        {'American Indian and Alaska Native Alone': 1.4,
+         'Asian Alone': 3.8,
+         'Black Alone': 2.2,
+         'Hispanic or Latino': 22.0,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 3.4,
+         'White Alone': 89.0,
+         'White Alone, not Hispanic or Latino': 69.5},
+        {'Per Capita Income': 29954,
+         'Persons Below Poverty Level': 14.3,
+         'Median Household Income': 58697},
+        {'2010 Population': 269637,
+         '2014 Population': 279083,
+         'Population Percent Change': 3.5,
+         'Population per Square Mile': 81.7},
+        'CA')
+    county2 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.0},
+        'Crawford County',
+        {"Bachelor's Degree or Higher": 14.3,
+         'High School or Higher': 82.2},
+        {'American Indian and Alaska Native Alone': 2.5,
+         'Asian Alone': 1.6,
+         'Black Alone': 1.6,
+         'Hispanic or Latino': 6.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 2.8,
+         'White Alone': 91.5,
+         'White Alone, not Hispanic or Latino': 85.6},
+        {'Per Capita Income': 19477,
+         'Persons Below Poverty Level': 20.2,
+         'Median Household Income': 39479},
+        {'2010 Population': 61948,
+         '2014 Population': 61697,
+         'Population Percent Change': -0.4,
+         'Population per Square Mile': 104.4},
+        'AR')
+    county3 = CountyDemographics(
+        {'Percent 65 and Older': 18.1,
+         'Percent Under 18 Years': 21.6,
+         'Percent Under 5 Years': 6.5},
+        'Weston County',
+        {"Bachelor's Degree or Higher": 17.2,
+         'High School or Higher': 90.2},
+        {'American Indian and Alaska Native Alone': 1.7,
+         'Asian Alone': 0.4,
+         'Black Alone': 0.7,
+         'Hispanic or Latino': 4.2,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.0,
+         'Two or More Races': 2.2,
+         'White Alone': 95.0,
+         'White Alone, not Hispanic or Latino': 91.5},
+        {'Per Capita Income': 28764,
+         'Persons Below Poverty Level': 11.2,
+         'Median Household Income': 55461},
+        {'2010 Population': 7208,
+         '2014 Population': 7201,
+         'Population Percent Change': -0.1,
+         'Population per Square Mile': 3.0},
+        'WY')
+    county4 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.9},
+        'Pettis County',
+        {"Bachelor's Degree or Higher": 15.2,
+         'High School or Higher': 81.8},
+        {'American Indian and Alaska Native Alone': 0.7,
+         'Asian Alone': 0.7,
+         'Black Alone': 3.4,
+         'Hispanic or Latino': 8.3,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.3,
+         'Two or More Races': 1.9,
+         'White Alone': 92.9,
+         'White Alone, not Hispanic or Latino': 85.5},
+        {'Per Capita Income': 19709,
+         'Persons Below Poverty Level': 18.4,
+         'Median Household Income': 38580},
+        {'2010 Population': 42201,
+         '2014 Population': 42225,
+         'Population Percent Change': 0.1,
+         'Population per Square Mile': 61.9},
+        'MO')
+    county5 = CountyDemographics(
+        {'Percent 65 and Older': 19.6,
+         'Percent Under 18 Years': 25.6,
+         'Percent Under 5 Years': 4.9},
+        'Butte County',
+        {"Bachelor's Degree or Higher": 17.9,
+         'High School or Higher': 89.2},
+        {'American Indian and Alaska Native Alone': 1.0,
+         'Asian Alone': 0.3,
+         'Black Alone': 0.2,
+         'Hispanic or Latino': 5.8,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 2.3,
+         'White Alone': 96.1,
+         'White Alone, not Hispanic or Latino': 90.6},
+        {'Per Capita Income': 20995,
+         'Persons Below Poverty Level': 15.7,
+         'Median Household Income': 41131},
+        {'2010 Population': 2891,
+         '2014 Population': 2622,
+         'Population Percent Change': -9.4,
+         'Population per Square Mile': 1.3},
+        'ID')
+    county6 = CountyDemographics(
+        {'Percent 65 and Older': 11.5,
+         'Percent Under 18 Years': 21.7,
+         'Percent Under 5 Years': 5.8},
+        'Yolo County',
+        {"Bachelor's Degree or Higher": 37.9,
+         'High School or Higher': 84.3},
+        {'American Indian and Alaska Native Alone': 1.8,
+         'Asian Alone': 13.8,
+         'Black Alone': 3.0,
+         'Hispanic or Latino': 31.5,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.6,
+         'Two or More Races': 5.0,
+         'White Alone': 75.9,
+         'White Alone, not Hispanic or Latino': 48.3},
+        {'Per Capita Income': 27730,
+         'Persons Below Poverty Level': 19.1,
+         'Median Household Income': 55918},
+        {'2010 Population': 200849,
+         '2014 Population': 207590,
+         'Population Percent Change': 3.4,
+         'Population per Square Mile': 197.9},
+        'CA')
+    county7 = CountyDemographics(
+        {'Percent 65 and Older': 13.8,
+         'Percent Under 18 Years': 25.2,
+         'Percent Under 5 Years': 6.0},
+        'Autauga County',
+        {"Bachelor's Degree or Higher": 20.9,
+         'High School or Higher': 85.6},
+        {'American Indian and Alaska Native Alone': 0.5,
+         'Asian Alone': 1.1,
+         'Black Alone': 18.7,
+         'Hispanic or Latino': 2.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 1.8,
+         'White Alone': 77.9,
+         'White Alone, not Hispanic or Latino': 75.6},
+        {'Per Capita Income': 24571,
+         'Persons Below Poverty Level': 12.1,
+         'Median Household Income': 53682},
+        {'2010 Population': 54571,
+         '2014 Population': 55395,
+         'Population Percent Change': 1.5,
+         'Population per Square Mile': 91.8},
+        'AL')
+    counties = [county1,county2,county3,county4,county5,county6,county7]
+    result = population_by_education(counties, "Bachelor's Degree or Higher")
+    print(result)
 
+    def population_by_ethnicity(counties: list[CountyDemographics], ethnicity: str) -> float:
+        total_population = 0.0
+        for county in counties:
+            if ethnicity in county.ethnicities:
+                percentage = county.ethnicities[ethnicity]
+                population_2014 = county.population['2014 Population']
+                sub_population = (percentage / 100) * population_2014
+                total_population += sub_population
+            return total_population
+    county1 = CountyDemographics(
+        {'Percent 65 and Older': 17.5,
+         'Percent Under 18 Years': 18.1,
+         'Percent Under 5 Years': 4.8},
+        'San Luis Obispo County',
+        {"Bachelor's Degree or Higher": 31.5,
+         'High School or Higher': 89.6},
+        {'American Indian and Alaska Native Alone': 1.4,
+         'Asian Alone': 3.8,
+         'Black Alone': 2.2,
+         'Hispanic or Latino': 22.0,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 3.4,
+         'White Alone': 89.0,
+         'White Alone, not Hispanic or Latino': 69.5},
+        {'Per Capita Income': 29954,
+         'Persons Below Poverty Level': 14.3,
+         'Median Household Income': 58697},
+        {'2010 Population': 269637,
+         '2014 Population': 279083,
+         'Population Percent Change': 3.5,
+         'Population per Square Mile': 81.7},
+        'CA')
+    county2 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.0},
+        'Crawford County',
+        {"Bachelor's Degree or Higher": 14.3,
+         'High School or Higher': 82.2},
+        {'American Indian and Alaska Native Alone': 2.5,
+         'Asian Alone': 1.6,
+         'Black Alone': 1.6,
+         'Hispanic or Latino': 6.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 2.8,
+         'White Alone': 91.5,
+         'White Alone, not Hispanic or Latino': 85.6},
+        {'Per Capita Income': 19477,
+         'Persons Below Poverty Level': 20.2,
+         'Median Household Income': 39479},
+        {'2010 Population': 61948,
+         '2014 Population': 61697,
+         'Population Percent Change': -0.4,
+         'Population per Square Mile': 104.4},
+        'AR')
+    county3 = CountyDemographics(
+        {'Percent 65 and Older': 18.1,
+         'Percent Under 18 Years': 21.6,
+         'Percent Under 5 Years': 6.5},
+        'Weston County',
+        {"Bachelor's Degree or Higher": 17.2,
+         'High School or Higher': 90.2},
+        {'American Indian and Alaska Native Alone': 1.7,
+         'Asian Alone': 0.4,
+         'Black Alone': 0.7,
+         'Hispanic or Latino': 4.2,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.0,
+         'Two or More Races': 2.2,
+         'White Alone': 95.0,
+         'White Alone, not Hispanic or Latino': 91.5},
+        {'Per Capita Income': 28764,
+         'Persons Below Poverty Level': 11.2,
+         'Median Household Income': 55461},
+        {'2010 Population': 7208,
+         '2014 Population': 7201,
+         'Population Percent Change': -0.1,
+         'Population per Square Mile': 3.0},
+        'WY')
+    county4 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.9},
+        'Pettis County',
+        {"Bachelor's Degree or Higher": 15.2,
+         'High School or Higher': 81.8},
+        {'American Indian and Alaska Native Alone': 0.7,
+         'Asian Alone': 0.7,
+         'Black Alone': 3.4,
+         'Hispanic or Latino': 8.3,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.3,
+         'Two or More Races': 1.9,
+         'White Alone': 92.9,
+         'White Alone, not Hispanic or Latino': 85.5},
+        {'Per Capita Income': 19709,
+         'Persons Below Poverty Level': 18.4,
+         'Median Household Income': 38580},
+        {'2010 Population': 42201,
+         '2014 Population': 42225,
+         'Population Percent Change': 0.1,
+         'Population per Square Mile': 61.9},
+        'MO')
+    county5 = CountyDemographics(
+        {'Percent 65 and Older': 19.6,
+         'Percent Under 18 Years': 25.6,
+         'Percent Under 5 Years': 4.9},
+        'Butte County',
+        {"Bachelor's Degree or Higher": 17.9,
+         'High School or Higher': 89.2},
+        {'American Indian and Alaska Native Alone': 1.0,
+         'Asian Alone': 0.3,
+         'Black Alone': 0.2,
+         'Hispanic or Latino': 5.8,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 2.3,
+         'White Alone': 96.1,
+         'White Alone, not Hispanic or Latino': 90.6},
+        {'Per Capita Income': 20995,
+         'Persons Below Poverty Level': 15.7,
+         'Median Household Income': 41131},
+        {'2010 Population': 2891,
+         '2014 Population': 2622,
+         'Population Percent Change': -9.4,
+         'Population per Square Mile': 1.3},
+        'ID')
+    county6 = CountyDemographics(
+        {'Percent 65 and Older': 11.5,
+         'Percent Under 18 Years': 21.7,
+         'Percent Under 5 Years': 5.8},
+        'Yolo County',
+        {"Bachelor's Degree or Higher": 37.9,
+         'High School or Higher': 84.3},
+        {'American Indian and Alaska Native Alone': 1.8,
+         'Asian Alone': 13.8,
+         'Black Alone': 3.0,
+         'Hispanic or Latino': 31.5,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.6,
+         'Two or More Races': 5.0,
+         'White Alone': 75.9,
+         'White Alone, not Hispanic or Latino': 48.3},
+        {'Per Capita Income': 27730,
+         'Persons Below Poverty Level': 19.1,
+         'Median Household Income': 55918},
+        {'2010 Population': 200849,
+         '2014 Population': 207590,
+         'Population Percent Change': 3.4,
+         'Population per Square Mile': 197.9},
+        'CA')
+    county7 = CountyDemographics(
+        {'Percent 65 and Older': 13.8,
+         'Percent Under 18 Years': 25.2,
+         'Percent Under 5 Years': 6.0},
+        'Autauga County',
+        {"Bachelor's Degree or Higher": 20.9,
+         'High School or Higher': 85.6},
+        {'American Indian and Alaska Native Alone': 0.5,
+         'Asian Alone': 1.1,
+         'Black Alone': 18.7,
+         'Hispanic or Latino': 2.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 1.8,
+         'White Alone': 77.9,
+         'White Alone, not Hispanic or Latino': 75.6},
+        {'Per Capita Income': 24571,
+         'Persons Below Poverty Level': 12.1,
+         'Median Household Income': 53682},
+        {'2010 Population': 54571,
+         '2014 Population': 55395,
+         'Population Percent Change': 1.5,
+         'Population per Square Mile': 91.8},
+        'AL')
+    counties = [county1,county2,county3,county4,county5,county6,county7]
+    result = population_by_ethnicity(counties, 'Two or More Races')
+    print(result)
+
+    def population_below_poverty_level(counties: list[CountyDemographics]) -> float:
+        total_population = 0.0
+        for county in counties:
+            percentage_below_poverty = county.income['Persons Below Poverty Level']
+            population_2014 = county.population['2014 Population']
+            sub_population = (percentage_below_poverty / 100) * population_2014
+            total_population += sub_population
+        return total_population
+    county1 = CountyDemographics(
+        {'Percent 65 and Older': 17.5,
+         'Percent Under 18 Years': 18.1,
+         'Percent Under 5 Years': 4.8},
+        'San Luis Obispo County',
+        {"Bachelor's Degree or Higher": 31.5,
+         'High School or Higher': 89.6},
+        {'American Indian and Alaska Native Alone': 1.4,
+         'Asian Alone': 3.8,
+         'Black Alone': 2.2,
+         'Hispanic or Latino': 22.0,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 3.4,
+         'White Alone': 89.0,
+         'White Alone, not Hispanic or Latino': 69.5},
+        {'Per Capita Income': 29954,
+         'Persons Below Poverty Level': 14.3,
+         'Median Household Income': 58697},
+        {'2010 Population': 269637,
+         '2014 Population': 279083,
+         'Population Percent Change': 3.5,
+         'Population per Square Mile': 81.7},
+        'CA')
+    county2 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.0},
+        'Crawford County',
+        {"Bachelor's Degree or Higher": 14.3,
+         'High School or Higher': 82.2},
+        {'American Indian and Alaska Native Alone': 2.5,
+         'Asian Alone': 1.6,
+         'Black Alone': 1.6,
+         'Hispanic or Latino': 6.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 2.8,
+         'White Alone': 91.5,
+         'White Alone, not Hispanic or Latino': 85.6},
+        {'Per Capita Income': 19477,
+         'Persons Below Poverty Level': 20.2,
+         'Median Household Income': 39479},
+        {'2010 Population': 61948,
+         '2014 Population': 61697,
+         'Population Percent Change': -0.4,
+         'Population per Square Mile': 104.4},
+        'AR')
+    county3 = CountyDemographics(
+        {'Percent 65 and Older': 18.1,
+         'Percent Under 18 Years': 21.6,
+         'Percent Under 5 Years': 6.5},
+        'Weston County',
+        {"Bachelor's Degree or Higher": 17.2,
+         'High School or Higher': 90.2},
+        {'American Indian and Alaska Native Alone': 1.7,
+         'Asian Alone': 0.4,
+         'Black Alone': 0.7,
+         'Hispanic or Latino': 4.2,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.0,
+         'Two or More Races': 2.2,
+         'White Alone': 95.0,
+         'White Alone, not Hispanic or Latino': 91.5},
+        {'Per Capita Income': 28764,
+         'Persons Below Poverty Level': 11.2,
+         'Median Household Income': 55461},
+        {'2010 Population': 7208,
+         '2014 Population': 7201,
+         'Population Percent Change': -0.1,
+         'Population per Square Mile': 3.0},
+        'WY')
+    county4 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.9},
+        'Pettis County',
+        {"Bachelor's Degree or Higher": 15.2,
+         'High School or Higher': 81.8},
+        {'American Indian and Alaska Native Alone': 0.7,
+         'Asian Alone': 0.7,
+         'Black Alone': 3.4,
+         'Hispanic or Latino': 8.3,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.3,
+         'Two or More Races': 1.9,
+         'White Alone': 92.9,
+         'White Alone, not Hispanic or Latino': 85.5},
+        {'Per Capita Income': 19709,
+         'Persons Below Poverty Level': 18.4,
+         'Median Household Income': 38580},
+        {'2010 Population': 42201,
+         '2014 Population': 42225,
+         'Population Percent Change': 0.1,
+         'Population per Square Mile': 61.9},
+        'MO')
+    county5 = CountyDemographics(
+        {'Percent 65 and Older': 19.6,
+         'Percent Under 18 Years': 25.6,
+         'Percent Under 5 Years': 4.9},
+        'Butte County',
+        {"Bachelor's Degree or Higher": 17.9,
+         'High School or Higher': 89.2},
+        {'American Indian and Alaska Native Alone': 1.0,
+         'Asian Alone': 0.3,
+         'Black Alone': 0.2,
+         'Hispanic or Latino': 5.8,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 2.3,
+         'White Alone': 96.1,
+         'White Alone, not Hispanic or Latino': 90.6},
+        {'Per Capita Income': 20995,
+         'Persons Below Poverty Level': 15.7,
+         'Median Household Income': 41131},
+        {'2010 Population': 2891,
+         '2014 Population': 2622,
+         'Population Percent Change': -9.4,
+         'Population per Square Mile': 1.3},
+        'ID')
+    county6 = CountyDemographics(
+        {'Percent 65 and Older': 11.5,
+         'Percent Under 18 Years': 21.7,
+         'Percent Under 5 Years': 5.8},
+        'Yolo County',
+        {"Bachelor's Degree or Higher": 37.9,
+         'High School or Higher': 84.3},
+        {'American Indian and Alaska Native Alone': 1.8,
+         'Asian Alone': 13.8,
+         'Black Alone': 3.0,
+         'Hispanic or Latino': 31.5,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.6,
+         'Two or More Races': 5.0,
+         'White Alone': 75.9,
+         'White Alone, not Hispanic or Latino': 48.3},
+        {'Per Capita Income': 27730,
+         'Persons Below Poverty Level': 19.1,
+         'Median Household Income': 55918},
+        {'2010 Population': 200849,
+         '2014 Population': 207590,
+         'Population Percent Change': 3.4,
+         'Population per Square Mile': 197.9},
+        'CA')
+    county7 = CountyDemographics(
+        {'Percent 65 and Older': 13.8,
+         'Percent Under 18 Years': 25.2,
+         'Percent Under 5 Years': 6.0},
+        'Autauga County',
+        {"Bachelor's Degree or Higher": 20.9,
+         'High School or Higher': 85.6},
+        {'American Indian and Alaska Native Alone': 0.5,
+         'Asian Alone': 1.1,
+         'Black Alone': 18.7,
+         'Hispanic or Latino': 2.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 1.8,
+         'White Alone': 77.9,
+         'White Alone, not Hispanic or Latino': 75.6},
+        {'Per Capita Income': 24571,
+         'Persons Below Poverty Level': 12.1,
+         'Median Household Income': 53682},
+        {'2010 Population': 54571,
+         '2014 Population': 55395,
+         'Population Percent Change': 1.5,
+         'Population per Square Mile': 91.8},
+        'AL')
+    counties = [county1,county2,county3,county4,county5,county6,county7]
+    result = population_below_poverty_level(counties)
+    print(result)
     # Part 4
     # test percent_by_education
     # test percent_by_ethnicity
     # test percent_below_poverty_level
+class CountyDemographics:
+    def __init__(self,
+                    age: dict[str, float],
+                    county: str,
+                    education: dict[str, float],
+                    ethnicities: dict[str, float],
+                    income: dict[str, float],
+                    population: dict[str, float],
+                    state: str):
+        self.age = age
+        self.county = county
+        self.education = education
+        self.ethnicities = ethnicities
+        self.income = income
+        self.population = population
+        self.state = state
+    def percent_by_education(counties: list[CountyDemographics], education: str) -> float:
+        total_population = 0.0
+        sub_population = 0.0
+        for county in counties:
+            total_population += county.population['2014 Population']
+            if education in county.education:
+                percentage = county.education["Bachelor's Degree or Higher"]
+                sub_population += (percentage / 100) * county.population['2014 Population']
+        if total_population == 0:
+            return 0.0
+        return (sub_population / total_population) * 100
+    county1 = CountyDemographics(
+        {'Percent 65 and Older': 17.5,
+         'Percent Under 18 Years': 18.1,
+         'Percent Under 5 Years': 4.8},
+        'San Luis Obispo County',
+        {"Bachelor's Degree or Higher": 31.5,
+         'High School or Higher': 89.6},
+        {'American Indian and Alaska Native Alone': 1.4,
+         'Asian Alone': 3.8,
+         'Black Alone': 2.2,
+         'Hispanic or Latino': 22.0,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 3.4,
+         'White Alone': 89.0,
+         'White Alone, not Hispanic or Latino': 69.5},
+        {'Per Capita Income': 29954,
+         'Persons Below Poverty Level': 14.3,
+         'Median Household Income': 58697},
+        {'2010 Population': 269637,
+         '2014 Population': 279083,
+         'Population Percent Change': 3.5,
+         'Population per Square Mile': 81.7},
+        'CA')
+    county2 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.0},
+        'Crawford County',
+        {"Bachelor's Degree or Higher": 14.3,
+         'High School or Higher': 82.2},
+        {'American Indian and Alaska Native Alone': 2.5,
+         'Asian Alone': 1.6,
+         'Black Alone': 1.6,
+         'Hispanic or Latino': 6.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 2.8,
+         'White Alone': 91.5,
+         'White Alone, not Hispanic or Latino': 85.6},
+        {'Per Capita Income': 19477,
+         'Persons Below Poverty Level': 20.2,
+         'Median Household Income': 39479},
+        {'2010 Population': 61948,
+         '2014 Population': 61697,
+         'Population Percent Change': -0.4,
+         'Population per Square Mile': 104.4},
+        'AR')
+    county3 = CountyDemographics(
+        {'Percent 65 and Older': 18.1,
+         'Percent Under 18 Years': 21.6,
+         'Percent Under 5 Years': 6.5},
+        'Weston County',
+        {"Bachelor's Degree or Higher": 17.2,
+         'High School or Higher': 90.2},
+        {'American Indian and Alaska Native Alone': 1.7,
+         'Asian Alone': 0.4,
+         'Black Alone': 0.7,
+         'Hispanic or Latino': 4.2,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.0,
+         'Two or More Races': 2.2,
+         'White Alone': 95.0,
+         'White Alone, not Hispanic or Latino': 91.5},
+        {'Per Capita Income': 28764,
+         'Persons Below Poverty Level': 11.2,
+         'Median Household Income': 55461},
+        {'2010 Population': 7208,
+         '2014 Population': 7201,
+         'Population Percent Change': -0.1,
+         'Population per Square Mile': 3.0},
+        'WY')
+    county4 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.9},
+        'Pettis County',
+        {"Bachelor's Degree or Higher": 15.2,
+         'High School or Higher': 81.8},
+        {'American Indian and Alaska Native Alone': 0.7,
+         'Asian Alone': 0.7,
+         'Black Alone': 3.4,
+         'Hispanic or Latino': 8.3,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.3,
+         'Two or More Races': 1.9,
+         'White Alone': 92.9,
+         'White Alone, not Hispanic or Latino': 85.5},
+        {'Per Capita Income': 19709,
+         'Persons Below Poverty Level': 18.4,
+         'Median Household Income': 38580},
+        {'2010 Population': 42201,
+         '2014 Population': 42225,
+         'Population Percent Change': 0.1,
+         'Population per Square Mile': 61.9},
+        'MO')
+    county5 = CountyDemographics(
+        {'Percent 65 and Older': 19.6,
+         'Percent Under 18 Years': 25.6,
+         'Percent Under 5 Years': 4.9},
+        'Butte County',
+        {"Bachelor's Degree or Higher": 17.9,
+         'High School or Higher': 89.2},
+        {'American Indian and Alaska Native Alone': 1.0,
+         'Asian Alone': 0.3,
+         'Black Alone': 0.2,
+         'Hispanic or Latino': 5.8,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 2.3,
+         'White Alone': 96.1,
+         'White Alone, not Hispanic or Latino': 90.6},
+        {'Per Capita Income': 20995,
+         'Persons Below Poverty Level': 15.7,
+         'Median Household Income': 41131},
+        {'2010 Population': 2891,
+         '2014 Population': 2622,
+         'Population Percent Change': -9.4,
+         'Population per Square Mile': 1.3},
+        'ID')
+    county6 = CountyDemographics(
+        {'Percent 65 and Older': 11.5,
+         'Percent Under 18 Years': 21.7,
+         'Percent Under 5 Years': 5.8},
+        'Yolo County',
+        {"Bachelor's Degree or Higher": 37.9,
+         'High School or Higher': 84.3},
+        {'American Indian and Alaska Native Alone': 1.8,
+         'Asian Alone': 13.8,
+         'Black Alone': 3.0,
+         'Hispanic or Latino': 31.5,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.6,
+         'Two or More Races': 5.0,
+         'White Alone': 75.9,
+         'White Alone, not Hispanic or Latino': 48.3},
+        {'Per Capita Income': 27730,
+         'Persons Below Poverty Level': 19.1,
+         'Median Household Income': 55918},
+        {'2010 Population': 200849,
+         '2014 Population': 207590,
+         'Population Percent Change': 3.4,
+         'Population per Square Mile': 197.9},
+        'CA')
+    county7 = CountyDemographics(
+        {'Percent 65 and Older': 13.8,
+         'Percent Under 18 Years': 25.2,
+         'Percent Under 5 Years': 6.0},
+        'Autauga County',
+        {"Bachelor's Degree or Higher": 20.9,
+         'High School or Higher': 85.6},
+        {'American Indian and Alaska Native Alone': 0.5,
+         'Asian Alone': 1.1,
+         'Black Alone': 18.7,
+         'Hispanic or Latino': 2.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 1.8,
+         'White Alone': 77.9,
+         'White Alone, not Hispanic or Latino': 75.6},
+        {'Per Capita Income': 24571,
+         'Persons Below Poverty Level': 12.1,
+         'Median Household Income': 53682},
+        {'2010 Population': 54571,
+         '2014 Population': 55395,
+         'Population Percent Change': 1.5,
+         'Population per Square Mile': 91.8},
+        'AL')
+    counties = [county1,county2,county3,county4,county5,county6,county7]
+    result = percent_by_education(counties, "Bachelor's Degree or Higher")
+    print(result)
+
+    def percent_by_ethnicity(counties: list[CountyDemographics], ethnicity: str) -> float:
+        total_population = 0.0
+        sub_population = 0.0
+        for county in counties:
+            total_population += county.population['2014 Population']
+            if ethnicity in county.ethnicities:
+                percentage = county.ethnicities["Two or More Races"]
+                sub_population += (percentage / 100) * county.population['2014 Population']
+        if total_population == 0:
+            return 0.0
+        return (sub_population / total_population) * 100
+    county1 = CountyDemographics(
+        {'Percent 65 and Older': 17.5,
+         'Percent Under 18 Years': 18.1,
+         'Percent Under 5 Years': 4.8},
+        'San Luis Obispo County',
+        {"Bachelor's Degree or Higher": 31.5,
+         'High School or Higher': 89.6},
+        {'American Indian and Alaska Native Alone': 1.4,
+         'Asian Alone': 3.8,
+         'Black Alone': 2.2,
+         'Hispanic or Latino': 22.0,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 3.4,
+         'White Alone': 89.0,
+         'White Alone, not Hispanic or Latino': 69.5},
+        {'Per Capita Income': 29954,
+         'Persons Below Poverty Level': 14.3,
+         'Median Household Income': 58697},
+        {'2010 Population': 269637,
+         '2014 Population': 279083,
+         'Population Percent Change': 3.5,
+         'Population per Square Mile': 81.7},
+        'CA')
+    county2 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.0},
+        'Crawford County',
+        {"Bachelor's Degree or Higher": 14.3,
+         'High School or Higher': 82.2},
+        {'American Indian and Alaska Native Alone': 2.5,
+         'Asian Alone': 1.6,
+         'Black Alone': 1.6,
+         'Hispanic or Latino': 6.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 2.8,
+         'White Alone': 91.5,
+         'White Alone, not Hispanic or Latino': 85.6},
+        {'Per Capita Income': 19477,
+         'Persons Below Poverty Level': 20.2,
+         'Median Household Income': 39479},
+        {'2010 Population': 61948,
+         '2014 Population': 61697,
+         'Population Percent Change': -0.4,
+         'Population per Square Mile': 104.4},
+        'AR')
+    county3 = CountyDemographics(
+        {'Percent 65 and Older': 18.1,
+         'Percent Under 18 Years': 21.6,
+         'Percent Under 5 Years': 6.5},
+        'Weston County',
+        {"Bachelor's Degree or Higher": 17.2,
+         'High School or Higher': 90.2},
+        {'American Indian and Alaska Native Alone': 1.7,
+         'Asian Alone': 0.4,
+         'Black Alone': 0.7,
+         'Hispanic or Latino': 4.2,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.0,
+         'Two or More Races': 2.2,
+         'White Alone': 95.0,
+         'White Alone, not Hispanic or Latino': 91.5},
+        {'Per Capita Income': 28764,
+         'Persons Below Poverty Level': 11.2,
+         'Median Household Income': 55461},
+        {'2010 Population': 7208,
+         '2014 Population': 7201,
+         'Population Percent Change': -0.1,
+         'Population per Square Mile': 3.0},
+        'WY')
+    county4 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.9},
+        'Pettis County',
+        {"Bachelor's Degree or Higher": 15.2,
+         'High School or Higher': 81.8},
+        {'American Indian and Alaska Native Alone': 0.7,
+         'Asian Alone': 0.7,
+         'Black Alone': 3.4,
+         'Hispanic or Latino': 8.3,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.3,
+         'Two or More Races': 1.9,
+         'White Alone': 92.9,
+         'White Alone, not Hispanic or Latino': 85.5},
+        {'Per Capita Income': 19709,
+         'Persons Below Poverty Level': 18.4,
+         'Median Household Income': 38580},
+        {'2010 Population': 42201,
+         '2014 Population': 42225,
+         'Population Percent Change': 0.1,
+         'Population per Square Mile': 61.9},
+        'MO')
+    county5 = CountyDemographics(
+        {'Percent 65 and Older': 19.6,
+         'Percent Under 18 Years': 25.6,
+         'Percent Under 5 Years': 4.9},
+        'Butte County',
+        {"Bachelor's Degree or Higher": 17.9,
+         'High School or Higher': 89.2},
+        {'American Indian and Alaska Native Alone': 1.0,
+         'Asian Alone': 0.3,
+         'Black Alone': 0.2,
+         'Hispanic or Latino': 5.8,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 2.3,
+         'White Alone': 96.1,
+         'White Alone, not Hispanic or Latino': 90.6},
+        {'Per Capita Income': 20995,
+         'Persons Below Poverty Level': 15.7,
+         'Median Household Income': 41131},
+        {'2010 Population': 2891,
+         '2014 Population': 2622,
+         'Population Percent Change': -9.4,
+         'Population per Square Mile': 1.3},
+        'ID')
+    county6 = CountyDemographics(
+        {'Percent 65 and Older': 11.5,
+         'Percent Under 18 Years': 21.7,
+         'Percent Under 5 Years': 5.8},
+        'Yolo County',
+        {"Bachelor's Degree or Higher": 37.9,
+         'High School or Higher': 84.3},
+        {'American Indian and Alaska Native Alone': 1.8,
+         'Asian Alone': 13.8,
+         'Black Alone': 3.0,
+         'Hispanic or Latino': 31.5,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.6,
+         'Two or More Races': 5.0,
+         'White Alone': 75.9,
+         'White Alone, not Hispanic or Latino': 48.3},
+        {'Per Capita Income': 27730,
+         'Persons Below Poverty Level': 19.1,
+         'Median Household Income': 55918},
+        {'2010 Population': 200849,
+         '2014 Population': 207590,
+         'Population Percent Change': 3.4,
+         'Population per Square Mile': 197.9},
+        'CA')
+    county7 = CountyDemographics(
+        {'Percent 65 and Older': 13.8,
+         'Percent Under 18 Years': 25.2,
+         'Percent Under 5 Years': 6.0},
+        'Autauga County',
+        {"Bachelor's Degree or Higher": 20.9,
+         'High School or Higher': 85.6},
+        {'American Indian and Alaska Native Alone': 0.5,
+         'Asian Alone': 1.1,
+         'Black Alone': 18.7,
+         'Hispanic or Latino': 2.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 1.8,
+         'White Alone': 77.9,
+         'White Alone, not Hispanic or Latino': 75.6},
+        {'Per Capita Income': 24571,
+         'Persons Below Poverty Level': 12.1,
+         'Median Household Income': 53682},
+        {'2010 Population': 54571,
+         '2014 Population': 55395,
+         'Population Percent Change': 1.5,
+         'Population per Square Mile': 91.8},
+        'AL')
+    counties = [county1,county2,county3,county4,county5,county6,county7]
+    result = percent_by_ethnicity(counties, "Two or More Races")
+    print(result)
+
+    def percent_below_poverty_level(counties: list[CountyDemographics]) -> float:
+        total_population = 0.0
+        sub_population = 0.0
+        for county in counties:
+            total_population += county.population['2014 Population']
+            percentage_below_poverty = county.income['Persons Below Poverty Level']
+            sub_population += (percentage_below_poverty / 100) * county.population['2014 Population']
+        if total_population == 0:
+            return 0.0
+        return (sub_population / total_population) * 100
+    county1 = CountyDemographics(
+        {'Percent 65 and Older': 17.5,
+         'Percent Under 18 Years': 18.1,
+         'Percent Under 5 Years': 4.8},
+        'San Luis Obispo County',
+        {"Bachelor's Degree or Higher": 31.5,
+         'High School or Higher': 89.6},
+        {'American Indian and Alaska Native Alone': 1.4,
+         'Asian Alone': 3.8,
+         'Black Alone': 2.2,
+         'Hispanic or Latino': 22.0,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 3.4,
+         'White Alone': 89.0,
+         'White Alone, not Hispanic or Latino': 69.5},
+        {'Per Capita Income': 29954,
+         'Persons Below Poverty Level': 14.3,
+         'Median Household Income': 58697},
+        {'2010 Population': 269637,
+         '2014 Population': 279083,
+         'Population Percent Change': 3.5,
+         'Population per Square Mile': 81.7},
+        'CA')
+    county2 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.0},
+        'Crawford County',
+        {"Bachelor's Degree or Higher": 14.3,
+         'High School or Higher': 82.2},
+        {'American Indian and Alaska Native Alone': 2.5,
+         'Asian Alone': 1.6,
+         'Black Alone': 1.6,
+         'Hispanic or Latino': 6.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 2.8,
+         'White Alone': 91.5,
+         'White Alone, not Hispanic or Latino': 85.6},
+        {'Per Capita Income': 19477,
+         'Persons Below Poverty Level': 20.2,
+         'Median Household Income': 39479},
+        {'2010 Population': 61948,
+         '2014 Population': 61697,
+         'Population Percent Change': -0.4,
+         'Population per Square Mile': 104.4},
+        'AR')
+    county3 = CountyDemographics(
+        {'Percent 65 and Older': 18.1,
+         'Percent Under 18 Years': 21.6,
+         'Percent Under 5 Years': 6.5},
+        'Weston County',
+        {"Bachelor's Degree or Higher": 17.2,
+         'High School or Higher': 90.2},
+        {'American Indian and Alaska Native Alone': 1.7,
+         'Asian Alone': 0.4,
+         'Black Alone': 0.7,
+         'Hispanic or Latino': 4.2,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.0,
+         'Two or More Races': 2.2,
+         'White Alone': 95.0,
+         'White Alone, not Hispanic or Latino': 91.5},
+        {'Per Capita Income': 28764,
+         'Persons Below Poverty Level': 11.2,
+         'Median Household Income': 55461},
+        {'2010 Population': 7208,
+         '2014 Population': 7201,
+         'Population Percent Change': -0.1,
+         'Population per Square Mile': 3.0},
+        'WY')
+    county4 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.9},
+        'Pettis County',
+        {"Bachelor's Degree or Higher": 15.2,
+         'High School or Higher': 81.8},
+        {'American Indian and Alaska Native Alone': 0.7,
+         'Asian Alone': 0.7,
+         'Black Alone': 3.4,
+         'Hispanic or Latino': 8.3,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.3,
+         'Two or More Races': 1.9,
+         'White Alone': 92.9,
+         'White Alone, not Hispanic or Latino': 85.5},
+        {'Per Capita Income': 19709,
+         'Persons Below Poverty Level': 18.4,
+         'Median Household Income': 38580},
+        {'2010 Population': 42201,
+         '2014 Population': 42225,
+         'Population Percent Change': 0.1,
+         'Population per Square Mile': 61.9},
+        'MO')
+    county5 = CountyDemographics(
+        {'Percent 65 and Older': 19.6,
+         'Percent Under 18 Years': 25.6,
+         'Percent Under 5 Years': 4.9},
+        'Butte County',
+        {"Bachelor's Degree or Higher": 17.9,
+         'High School or Higher': 89.2},
+        {'American Indian and Alaska Native Alone': 1.0,
+         'Asian Alone': 0.3,
+         'Black Alone': 0.2,
+         'Hispanic or Latino': 5.8,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 2.3,
+         'White Alone': 96.1,
+         'White Alone, not Hispanic or Latino': 90.6},
+        {'Per Capita Income': 20995,
+         'Persons Below Poverty Level': 15.7,
+         'Median Household Income': 41131},
+        {'2010 Population': 2891,
+         '2014 Population': 2622,
+         'Population Percent Change': -9.4,
+         'Population per Square Mile': 1.3},
+        'ID')
+    county6 = CountyDemographics(
+        {'Percent 65 and Older': 11.5,
+         'Percent Under 18 Years': 21.7,
+         'Percent Under 5 Years': 5.8},
+        'Yolo County',
+        {"Bachelor's Degree or Higher": 37.9,
+         'High School or Higher': 84.3},
+        {'American Indian and Alaska Native Alone': 1.8,
+         'Asian Alone': 13.8,
+         'Black Alone': 3.0,
+         'Hispanic or Latino': 31.5,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.6,
+         'Two or More Races': 5.0,
+         'White Alone': 75.9,
+         'White Alone, not Hispanic or Latino': 48.3},
+        {'Per Capita Income': 27730,
+         'Persons Below Poverty Level': 19.1,
+         'Median Household Income': 55918},
+        {'2010 Population': 200849,
+         '2014 Population': 207590,
+         'Population Percent Change': 3.4,
+         'Population per Square Mile': 197.9},
+        'CA')
+    county7 = CountyDemographics(
+        {'Percent 65 and Older': 13.8,
+         'Percent Under 18 Years': 25.2,
+         'Percent Under 5 Years': 6.0},
+        'Autauga County',
+        {"Bachelor's Degree or Higher": 20.9,
+         'High School or Higher': 85.6},
+        {'American Indian and Alaska Native Alone': 0.5,
+         'Asian Alone': 1.1,
+         'Black Alone': 18.7,
+         'Hispanic or Latino': 2.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 1.8,
+         'White Alone': 77.9,
+         'White Alone, not Hispanic or Latino': 75.6},
+        {'Per Capita Income': 24571,
+         'Persons Below Poverty Level': 12.1,
+         'Median Household Income': 53682},
+        {'2010 Population': 54571,
+         '2014 Population': 55395,
+         'Population Percent Change': 1.5,
+         'Population per Square Mile': 91.8},
+        'AL')
+    counties = [county1,county2,county3,county4,county5,county6,county7]
+    result = percent_below_poverty_level(counties)
+    print(result)
 
     # Part 5
+    class CountyDemographics:
+        def __init__(self,
+                     age: dict[str, float],
+                     county: str,
+                     education: dict[str, float],
+                     ethnicities: dict[str, float],
+                     income: dict[str, float],
+                     population: dict[str, float],
+                     state: str):
+            self.age = age
+            self.county = county
+            self.education = education
+            self.ethnicities = ethnicities
+            self.income = income
+            self.population = population
+            self.state = state
     # test education_greater_than
+    def education_greater_than(counties: list[CountyDemographics], education: str, threshold: float) -> list[CountyDemographics]:
+        result = []
+        for county in counties:
+            if education in county.education and county.education[education] > threshold:
+                result.append(county)
+        return result
     # test education_less_than
+    def education_less_than(counties: list[CountyDemographics], education: str, threshold: float) -> list[
+        CountyDemographics]:
+        result = []
+        for county in counties:
+            if education in county.education and county.education[education] < threshold:
+                result.append(county)
+        return result
     # test ethnicity_greater_than
+    def ethnicity_greater_than(counties: list[CountyDemographics], ethnicity: str, threshold: float) -> list[CountyDemographics]:
+        result = []
+        for county in counties:
+            if ethnicity in county.ethnicities and county.ethnicities[ethnicity] > threshold:
+                result.append(county)
+        return result
     # test ethnicity_less_than
+    def ethnicity_lesser_than(counties: list[CountyDemographics], ethnicity: str, threshold: float) -> list[CountyDemographics]:
+        result = []
+        for county in counties:
+            if ethnicity in county.ethnicities and county.ethnicities[ethnicity] < threshold:
+                result.append(county)
+        return result
     # test below_poverty_level_greater_than
+    def below_poverty_level_greater_than(counties: list[CountyDemographics], threshold: float) -> list[CountyDemographics]:
+        result = []
+        for county in counties:
+            if 'Persons Below Poverty Level' in county.income and county.income[
+                'Persons Below Poverty Level'] > threshold:
+                result.append(county)
+        return result
     # test below_poverty_level_less_than
-
+    def below_poverty_level_lesser_than(counties: list[CountyDemographics], threshold: float) -> list[CountyDemographics]:
+        result = []
+        for county in counties:
+            if 'Persons Below Poverty Level' in county.income and county.income[
+                'Persons Below Poverty Level'] < threshold:
+                result.append(county)
+        return result
+    county1 = CountyDemographics(
+        {'Percent 65 and Older': 17.5,
+         'Percent Under 18 Years': 18.1,
+         'Percent Under 5 Years': 4.8},
+        'San Luis Obispo County',
+        {"Bachelor's Degree or Higher": 31.5,
+         'High School or Higher': 89.6},
+        {'American Indian and Alaska Native Alone': 1.4,
+         'Asian Alone': 3.8,
+         'Black Alone': 2.2,
+         'Hispanic or Latino': 22.0,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 3.4,
+         'White Alone': 89.0,
+         'White Alone, not Hispanic or Latino': 69.5},
+        {'Per Capita Income': 29954,
+         'Persons Below Poverty Level': 14.3,
+         'Median Household Income': 58697},
+        {'2010 Population': 269637,
+         '2014 Population': 279083,
+         'Population Percent Change': 3.5,
+         'Population per Square Mile': 81.7},
+        'CA')
+    county2 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.0},
+        'Crawford County',
+        {"Bachelor's Degree or Higher": 14.3,
+         'High School or Higher': 82.2},
+        {'American Indian and Alaska Native Alone': 2.5,
+         'Asian Alone': 1.6,
+         'Black Alone': 1.6,
+         'Hispanic or Latino': 6.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 2.8,
+         'White Alone': 91.5,
+         'White Alone, not Hispanic or Latino': 85.6},
+        {'Per Capita Income': 19477,
+         'Persons Below Poverty Level': 20.2,
+         'Median Household Income': 39479},
+        {'2010 Population': 61948,
+         '2014 Population': 61697,
+         'Population Percent Change': -0.4,
+         'Population per Square Mile': 104.4},
+        'AR')
+    county3 = CountyDemographics(
+        {'Percent 65 and Older': 18.1,
+         'Percent Under 18 Years': 21.6,
+         'Percent Under 5 Years': 6.5},
+        'Weston County',
+        {"Bachelor's Degree or Higher": 17.2,
+         'High School or Higher': 90.2},
+        {'American Indian and Alaska Native Alone': 1.7,
+         'Asian Alone': 0.4,
+         'Black Alone': 0.7,
+         'Hispanic or Latino': 4.2,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.0,
+         'Two or More Races': 2.2,
+         'White Alone': 95.0,
+         'White Alone, not Hispanic or Latino': 91.5},
+        {'Per Capita Income': 28764,
+         'Persons Below Poverty Level': 11.2,
+         'Median Household Income': 55461},
+        {'2010 Population': 7208,
+         '2014 Population': 7201,
+         'Population Percent Change': -0.1,
+         'Population per Square Mile': 3.0},
+        'WY')
+    county4 = CountyDemographics(
+        {'Percent 65 and Older': 15.3,
+         'Percent Under 18 Years': 25.1,
+         'Percent Under 5 Years': 6.9},
+        'Pettis County',
+        {"Bachelor's Degree or Higher": 15.2,
+         'High School or Higher': 81.8},
+        {'American Indian and Alaska Native Alone': 0.7,
+         'Asian Alone': 0.7,
+         'Black Alone': 3.4,
+         'Hispanic or Latino': 8.3,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.3,
+         'Two or More Races': 1.9,
+         'White Alone': 92.9,
+         'White Alone, not Hispanic or Latino': 85.5},
+        {'Per Capita Income': 19709,
+         'Persons Below Poverty Level': 18.4,
+         'Median Household Income': 38580},
+        {'2010 Population': 42201,
+         '2014 Population': 42225,
+         'Population Percent Change': 0.1,
+         'Population per Square Mile': 61.9},
+        'MO')
+    county5 = CountyDemographics(
+        {'Percent 65 and Older': 19.6,
+         'Percent Under 18 Years': 25.6,
+         'Percent Under 5 Years': 4.9},
+        'Butte County',
+        {"Bachelor's Degree or Higher": 17.9,
+         'High School or Higher': 89.2},
+        {'American Indian and Alaska Native Alone': 1.0,
+         'Asian Alone': 0.3,
+         'Black Alone': 0.2,
+         'Hispanic or Latino': 5.8,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 2.3,
+         'White Alone': 96.1,
+         'White Alone, not Hispanic or Latino': 90.6},
+        {'Per Capita Income': 20995,
+         'Persons Below Poverty Level': 15.7,
+         'Median Household Income': 41131},
+        {'2010 Population': 2891,
+         '2014 Population': 2622,
+         'Population Percent Change': -9.4,
+         'Population per Square Mile': 1.3},
+        'ID')
+    county6 = CountyDemographics(
+        {'Percent 65 and Older': 11.5,
+         'Percent Under 18 Years': 21.7,
+         'Percent Under 5 Years': 5.8},
+        'Yolo County',
+        {"Bachelor's Degree or Higher": 37.9,
+         'High School or Higher': 84.3},
+        {'American Indian and Alaska Native Alone': 1.8,
+         'Asian Alone': 13.8,
+         'Black Alone': 3.0,
+         'Hispanic or Latino': 31.5,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.6,
+         'Two or More Races': 5.0,
+         'White Alone': 75.9,
+         'White Alone, not Hispanic or Latino': 48.3},
+        {'Per Capita Income': 27730,
+         'Persons Below Poverty Level': 19.1,
+         'Median Household Income': 55918},
+        {'2010 Population': 200849,
+         '2014 Population': 207590,
+         'Population Percent Change': 3.4,
+         'Population per Square Mile': 197.9},
+        'CA')
+    county7 = CountyDemographics(
+        {'Percent 65 and Older': 13.8,
+         'Percent Under 18 Years': 25.2,
+         'Percent Under 5 Years': 6.0},
+        'Autauga County',
+        {"Bachelor's Degree or Higher": 20.9,
+         'High School or Higher': 85.6},
+        {'American Indian and Alaska Native Alone': 0.5,
+         'Asian Alone': 1.1,
+         'Black Alone': 18.7,
+         'Hispanic or Latino': 2.7,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.1,
+         'Two or More Races': 1.8,
+         'White Alone': 77.9,
+         'White Alone, not Hispanic or Latino': 75.6},
+        {'Per Capita Income': 24571,
+         'Persons Below Poverty Level': 12.1,
+         'Median Household Income': 53682},
+        {'2010 Population': 54571,
+         '2014 Population': 55395,
+         'Population Percent Change': 1.5,
+         'Population per Square Mile': 91.8},
+        'AL')
+    result_education = education_greater_than(counties, "Bachelor's Degree or Higher", 20.0)
+    print(result_education)
+    result_education = education_less_than(counties, "Bachelor's Degree or Higher", 50.0)
+    print(result_education)
+    result_ethnicity = ethnicity_greater_than(counties, "Hispanic or Latino", 10.0)
+    print(result_ethnicity)
+    result_ethnicity = ethnicity_lesser_than(counties, "Hispanic or Latino", 30.0)
+    print(result_ethnicity)
+    result_poverty = below_poverty_level_greater_than(counties, 20.0)
+    print(result_poverty)
+    result_poverty = below_poverty_level_lesser_than(counties, 20.0)
+    print(result_poverty)
 
 
 if __name__ == '__main__':
